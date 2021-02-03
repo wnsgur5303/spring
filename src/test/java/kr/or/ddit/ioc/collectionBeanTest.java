@@ -1,17 +1,16 @@
 package kr.or.ddit.ioc;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.Resource;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@ContextConfiguration("classpath:kr/or/ddit/ioc/ioc.xml")
-@RunWith(SpringJUnit4ClassRunner.class)
-public class collectionBeanTest {
+import kr.or.ddit.test.config.ModelTestConfig;
+
+
+public class collectionBeanTest extends ModelTestConfig{
 	
 	//collectionBean 스프링번이 정상적으로 생성 되었는지.
 	@Resource(name="collectionBean")

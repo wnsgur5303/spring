@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-hello :${userVo}<br>
+rangers : ${rangers}<br>
+userVo(request) : ${userVo}<br>
 hello.jsp
 </body>
 </html>

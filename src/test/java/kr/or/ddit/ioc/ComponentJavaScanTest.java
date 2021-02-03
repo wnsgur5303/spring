@@ -13,15 +13,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.ddit.ioc.config.ComponentScanJavaConfig;
 import kr.or.ddit.ioc.vo.UserVo;
-import kr.or.ddit.user.repository.UserDao;
+import kr.or.ddit.test.config.ModelTestConfig;
+import kr.or.ddit.user.repository.UserDaoI;
 import kr.or.ddit.user.service.UserServiceI;
 
-@ContextConfiguration(classes = {ComponentScanJavaConfig.class})
-@RunWith(SpringJUnit4ClassRunner.class)
-public class ComponentJavaScanTest {
+
+public class ComponentJavaScanTest extends ModelTestConfig{
 
 	@Resource(name="userDao")
-	private UserDao userDao;
+	private UserDaoI userDao;
 	
 	@Resource(name="userService")
 	private UserServiceI userService;
@@ -31,7 +31,7 @@ public class ComponentJavaScanTest {
 	public void userDaoImplSpringBeanTest() {
 		assertNotNull(userDao);
 		
-		UserVo userVo = userDao.getUser("brown");
+		UserVo userVo = userDao.selectUser("brown");
 		assertEquals("브라운", userVo.getUsernm());
 	}
 
@@ -40,7 +40,7 @@ public class ComponentJavaScanTest {
 	public void userServiceImplSpringBeanTest() {
 		assertNotNull(userService);
 		
-		UserVo userVo = userService.getUser("brown");
+		UserVo userVo = userService.selectUser("brown");
 		assertEquals("브라운", userVo.getUsernm());
 	}
 	

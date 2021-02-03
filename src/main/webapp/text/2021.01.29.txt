@@ -19,10 +19,11 @@ value = "5"
 
 --3교시까지
 
-스프링 프레임 워크에서 타입 변환이 필요한 경우는 크게 3가지
+스프링 프레임 워크에서 타입 변환이 필요한 경우는 크게 2가지
 
 1. 값을 주입할 때 (DI)
 2. 컨트롤러에서 파라미터를 value 객체에 바인딩 할때
+
 
 스프링 프레임 워크에서 커스텀 타입 변환을 등록하는 방법은 크게 3가지
 1. propertyEditor: 문자 <--> 타입 간의 변환
@@ -74,8 +75,9 @@ servlet 환경에서는 servlet 자체를 테스트하기가 굉장히 어려움
  spring 프레임워크에서 처리될 요청은 Dispatcher Servlet이 받으므로
  Disdpatcher Servlet을 대신하여 테스트를 할 수 있는 객체를 제공하는 형식으로 컨트롤러 테스트를 진행
  
- DisdpatcherServlet ==> MockMvc
-  Dispatcher Servlet을 대신할 무언가
-  
+ DisdpatcherServlet ==> MockMvc생성을 위해서 --> WebApplicationContext 객체가 필요
+ 											==> tmvmfld vmfpdladnjzmdptj .ioc 컨테이너 생성시 자동으로 생성
+
+
   
  

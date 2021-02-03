@@ -1,9 +1,6 @@
 package kr.or.ddit.ioc;
 
-import static org.junit.Assert.*;
-
 import javax.annotation.Resource;
-import javax.swing.Spring;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,10 +10,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.ddit.ioc.vo.UserVo;
+import kr.or.ddit.test.config.ModelTestConfig;
 
-@ContextConfiguration("classpath:kr/or/ddit/ioc/typeConversion.xml")
+@ContextConfiguration("classpath:/kr/or/ddit/config/spring/application-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class typeConversionTest {
+public class typeConversionTest{
 	private static final Logger logger = LoggerFactory.getLogger(typeConversionTest.class);
 
 	@Resource(name = "user")

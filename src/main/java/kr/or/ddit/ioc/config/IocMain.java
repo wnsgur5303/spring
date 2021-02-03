@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import kr.or.ddit.ioc.vo.UserVo;
-import kr.or.ddit.user.repository.UserDao;
+import kr.or.ddit.user.repository.UserDaoI;
 import kr.or.ddit.user.service.UserServiceI;
 
 public class IocMain {
@@ -30,9 +30,9 @@ public class IocMain {
 		ApplicationContext context 
 			= new ClassPathXmlApplicationContext("classpath:kr/or/ddit/ioc/ioc.xml");//여기까지 1번
 		
-		UserDao userDao = (UserDao)context.getBean("userDao");//get빈은 오브젝트라 형변환 필요
+		UserDaoI userDao = (UserDaoI)context.getBean("userDaoI");//get빈은 오브젝트라 형변환 필요
 		
-		UserVo userVo = userDao.getUser("brown");
+		UserVo userVo = userDao.selectUser("brown");
 		
 		logger.debug("userVo : {}",userVo);
 		
@@ -42,7 +42,7 @@ public class IocMain {
 
 		UserServiceI userService = (UserServiceI)context.getBean("userService");//get빈은 오브젝트라 형변환 필요
 		
-		UserVo userVo2 = userService.getUser("brown");
+		UserVo userVo2 = userService.selectUser("brown");
 		
 		logger.debug("userService : {}",userVo2);
 		
