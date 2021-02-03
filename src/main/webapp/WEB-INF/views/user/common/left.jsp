@@ -2,8 +2,12 @@
     pageEncoding="UTF-8"%>
 <ul class="nav nav-sidebar">
 	<li class="active"><a href="#">Main <span class="sr-only">(current)</span></a></li>
-	<li class="active"><a href="${cp}/allUser">전체 사용자</a></li>
-	<li class="active"><a href="${cp}/user/pagingUser">사용자 페이징 리스트</a></li>
+	<li class="active"><a href="<%=request.getContextPath() %>/allUser">전체 사용자</a></li>
+	<li class="active"><a href="<%=request.getContextPath() %>/allUserTiles">전체 사용자(타일즈)</a></li>
+	
+	<li class="active"><a href="<%=request.getContextPath() %>/user/pagingUser">사용자 페이징 리스트</a></li>
+	<li class="active"><a href="<%=request.getContextPath() %>/user/pagingUserTiles">사용자 페이징 리스트</a></li>
+
 	<%-- 
 		/allUser 요청을 처리할 servlet(controller)
 		kr.or.ddit.user.controller.AllUser

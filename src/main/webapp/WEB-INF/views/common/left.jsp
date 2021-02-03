@@ -3,7 +3,11 @@
 <ul class="nav nav-sidebar">
 	<li class="active"><a href="#">Main <span class="sr-only">(current)</span></a></li>
 	<li class="active"><a href="<%=request.getContextPath() %>/user/allUser">전체 사용자</a></li>
+	<li class="active"><a href="<%=request.getContextPath() %>/user/allUserTiles">전체 사용자(타일즈)</a></li>
+	
+	
 	<li class="active"><a href="<%=request.getContextPath() %>/user/pagingUser">사용자 페이징 리스트</a></li>
+		<li class="active"><a href="<%=request.getContextPath() %>/user/pagingUserTiles">사용자 페이징 리스트<(타일즈)</a></li>
 	
 	<%--
 	01-11

@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +86,20 @@
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="userid" name="userid"
 								placeholder="사용자 아이디" value="${param.userid}">
+								
+								<span style="color: red"><form:errors path="userVo.userid"/></span><br>
+								
+			spring message : <spring:message code="GREETING" arguments="brown"></spring:message>
+								
 							<input type="file" class="form-control" name="profile"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="userNm" class="col-sm-2 control-label">사용자 이름</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="usernm" name="usernm"
+								placeholder="사용자 이름" value="${param.usernm}">
 						</div>
 					</div>
 					

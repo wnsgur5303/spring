@@ -14,15 +14,54 @@
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	
-	
-	<!-- @RequestMapping 어노테이션을 처리 
-	formattingConversionService 등록 
-	RequestMappingHandlerMapping 
-		RequestMappingHandlerAdapter annotation-driven 등록할때 자동으로 등록됨-->
+
+
+	<!-- @RequestMapping 어노테이션을 처리 formattingConversionService 등록 RequestMappingHandlerMapping 
+		RequestMappingHandlerAdapter annotation-driven 등록할때 자동으로 등록됨 -->
 	<mvc:annotation-driven>
 	</mvc:annotation-driven>
 	<!-- view resolver 등록 여러개를 등록하는 것이 가능 InternalResourceViewResolver -->
+
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<property name="order" value="0"></property>
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>classpath:/kr/or/ddit/config/tailes/tailes-definition.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- 02-03 3교시 -->
+
+	<!-- view resolver 우선순위 order값이 낮을수록 우선순위가 높다 -->
+	<bean
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="1"></property>
+	</bean>
+
+
+	<bean id="jsonView"
+		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+
+	</bean>
+	<bean id="fd" class="kr.or.ddit.view.FileDownloadView">
+
+	</bean>
+	<bean id="userExcelDownloadView"
+		class="kr.or.ddit.view.ExcelDownloadView">
+
+	</bean>
+
+
+
+
+	<!-- view resolver 등록 (여러개를 등록하는 것이 가능) jsp ==> InternalResourceViewResolver -->
+
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -33,7 +72,8 @@
 	<!-- 스프링이 처리하지 못하는 요청에 대해서 서버에 설정이 되어있는 default 서블릿으로 요청을 위임 -->
 	<mvc:default-servlet-handler />
 
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</bean>
 
 </beans>
