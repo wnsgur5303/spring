@@ -7,8 +7,9 @@
 	
 	
 	<li class="active"><a href="<%=request.getContextPath() %>/user/pagingUser">사용자 페이징 리스트</a></li>
-		<li class="active"><a href="<%=request.getContextPath() %>/user/pagingUserTiles">사용자 페이징 리스트<(타일즈)</a></li>
-	
+		<li class="active"><a href="<%=request.getContextPath() %>/user/pagingUserTiles">사용자 페이징 리스트(타일즈)</a></li>
+
+<li class="active"><a href="<%=request.getContextPath() %>/user/pagingUserAjaxView">사용자 페이징 리스트 ajax(ajax)</a></li>	
 	<%--
 	01-11
 	localHost/paging?page=1&pageSize=5로 요청시

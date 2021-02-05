@@ -10,8 +10,9 @@
 <script type="text/javascript">
 //문서 로딩이 완료되고 나서 실행되는 영역
 	$(function(){
+		pagingUserAjax(1, 5);
 		
-		$(".user").on("click",function(){
+		$("#userTbody").on("click",".user",function(){
 			
 			//this : 클릭 이베트가 발생한 element
 			//data-userId ==> data-userid, 속성명은 대소분자 무시하고 소분자로 인식
@@ -21,6 +22,36 @@
 		});
 		
 	});
+	
+function pagingUserAjax(page,pageSize){
+	
+
+	//ajax를 통해 사용자 리스트를 가져온다 : 1page, 5pageSize
+	$.ajax({
+		url : "pagingUserAjaxHtml",
+//			data : {page: 1, pageSize: 5},
+		data : "page="+page+"&pageSize="+pageSize+"",
+		success : function(data){
+			//성공은 ...함수..?
+					console.log(data);
+			//i = 인덱스 v = 꺼네온 객체
+			var html="";
+//				$.each(data.userList,function(i,user){		
+//					html += "<tr class = 'user' data-userid='"+user.userid+"'>";
+//					html += "	<td>"+user.userid+"</td>";
+//					html += "	<td>"+user.usernm+"</td>";
+//					html += "	<td>"+user.alias+"</td>";
+//					html += "	<td>"+user.reg_dt_fmt+"</td>";
+//					html += "</tr>";
+//				});
+			var html= data.split("####################")
+			$("#userTbody").html(html[0]);
+			$("#pagination").html(html[1]);
+//				document.getElementById("userTbody").innerHTML = html;
+			
+		}
+	});
+}
 </script>		
 
 <form id ="frm" action="<%=request.getContextPath() %>/user/user">
@@ -39,14 +70,10 @@
 					<th>사용자 별명</th>
 					<th>등록일시</th>
 				</tr>
-				<c:forEach items="${userList}" var = "user">
-				<tr class ="user" data-userid="${user.userid}">
-					<td>${user.userid}</td>
-					<td>${user.usernm}</td>
-					<td>${user.alias}</td>
-					<td><fmt:formatDate value="${user.reg_dt}" pattern="yyyy.MM.dd"/></td>
-				</tr>
-				</c:forEach>
+				<tbody id ="userTbody">
+				
+				</tbody>
+
 
 			</table>
 		</div>
@@ -54,30 +81,9 @@
 		<a class="btn btn-default pull-right" href="<%=request.getContextPath() %>/user/registUser">사용자 등록</a>
 		<a class="btn btn-default pull-right" href="<%=request.getContextPath() %>/user/excelDownload">사용자 엑셀다운로드</a>
 		<div class="text-center">
-			<ul class="pagination">
+			<ul id="pagination"class="pagination">
 			
-			
-			<!-- pagination 값이 4이므로 1부터 4까지 4번 반복된다.
-				햔재 사용자수	: 16명
-				페이지 사이즈	: 5
-				전체 페이지 수	: 4페이지 -->
-				<li class="prev">
-				<a href="<%=request.getContextPath() %>/user/pagingUserTiles?page=1&pageSize=${pageVo.pageSize}">«</a>
-				</li>
-				<c:set var = "cnt" value="${allpage}"/>	
-				<c:forEach begin ="1" end="${allpage}" var="i">
-					<c:choose>
-						<c:when test ="${pageVo.page == i}">
-						<li class="active"><span>${i}</span></li>
-						</c:when>
-						<c:otherwise>
-						<li><a href="<%=request.getContextPath() %>/user/pagingUserTiles?page=${i}&pageSize=${pageVo.pageSize}">${i}</a></li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			<li class="next">
-				<a href="<%=request.getContextPath() %>/user/pagingUserTiles?page=${cnt}&pageSize=${pageVo.pageSize}">»</a>
-			</li>
+				
 			</ul>
 		</div>
 	</div>

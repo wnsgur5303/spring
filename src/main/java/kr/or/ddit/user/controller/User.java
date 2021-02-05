@@ -81,6 +81,57 @@ public class User {
 		//
 		return "user/pagingUser";
 	}
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping("/pagingUserAjax")
+	public String pagingUserAjax(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int pageSize,
+			Model model) {
+
+		PageVo pageVo = new PageVo(page, pageSize);
+
+		int cnt = userService.selectAllUserCnt();
+		int allpage = (int) Math.ceil((double) cnt / pageSize);
+
+		model.addAttribute("page", page);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageVo", pageVo);
+		model.addAttribute("allpage", allpage);
+		model.addAttribute(userService.selectPagingUser(pageVo));
+		//
+		return "jsonView";
+	}
+	
+	
+	
+	@RequestMapping("pagingUserAjaxHtml")
+	public String pagingUserAjaxHtml(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int pageSize,
+			Model model) {
+
+		PageVo pageVo = new PageVo(page, pageSize);
+
+		int cnt = userService.selectAllUserCnt();
+		int allpage = (int) Math.ceil((double) cnt / pageSize);
+
+		model.addAttribute("page", page);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageVo", pageVo);
+		model.addAttribute("allpage", allpage);
+		model.addAttribute("userList",userService.selectPagingUser(pageVo));
+		//
+		return "user/pagingUserAjaxHtml";
+	}
+	
+	/*
+	 pagingUserAjaxHtml ==> /WEB-INF/views/user/pagingUserAjaxHtml.jsp
+	*/
+	
+	
+	
 //여기
 	@RequestMapping(path = "/user", method = { RequestMethod.GET })
 	public String user(String userid, Model model) {
@@ -107,21 +158,23 @@ public class User {
 	}
 
 	@RequestMapping(path = "/userModify", method = { RequestMethod.POST })
-	public String postuserModify(Model model, MultipartFile profile, UserVo userVo) {
+	public String postuserModify(@Valid UserVo userVo, BindingResult result, Model model, MultipartFile profile) {
 
-		if (profile.isEmpty() && profile.getSize() > 0) {
+		if (profile.getSize() > 0) {
 
 			try {
 				userVo.setFilename(profile.getOriginalFilename());
-				userVo.setRealfilename(UUID.randomUUID().toString() + profile.getOriginalFilename());
 
-				profile.transferTo(new File("d:\\upload\\" + userVo.getRealfilename()));
+				userVo.setRealfilename("d:\\upload\\" +UUID.randomUUID().toString() + profile.getOriginalFilename());
+
+				profile.transferTo(new File(userVo.getRealfilename()));
+
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}
 		} else {
-			userVo.setFilename("");
-			userVo.setRealfilename("");
+			userVo.setFilename(userVo.getFilename());
+			userVo.setRealfilename(userVo.getRealfilename());
 		}
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
@@ -161,7 +214,7 @@ public class User {
 		ra.addAttribute("addr2", userVo.getAddr2());
 		ra.addAttribute("zipcode", userVo.getZipcode());
 
-		return "user/registUser";
+		return "tiles.user.registUser";
 	}
 
 	@RequestMapping(path = "/registUser", method = { RequestMethod.POST })
@@ -186,14 +239,14 @@ public class User {
 //		}
 		// ----
 
-		if (profile.isEmpty() && profile.getSize() > 0) {
+		if (profile.getSize() > 0) {
 
 			try {
 				userVo.setFilename(profile.getOriginalFilename());
 
-				userVo.setRealfilename(UUID.randomUUID().toString() + profile.getOriginalFilename());
+				userVo.setRealfilename("d:\\upload\\" +UUID.randomUUID().toString() + profile.getOriginalFilename());
 
-				profile.transferTo(new File("d:\\upload\\" + userVo.getRealfilename()));
+				profile.transferTo(new File(userVo.getRealfilename()));
 
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
@@ -246,7 +299,7 @@ public class User {
 		return "userExcelDownloadView";
 	}
 	
-	
+	//**
 	@RequestMapping("/pagingUserTiles")
 	public String pagingUserTiles(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int pageSize,
 			Model model) {
@@ -265,6 +318,30 @@ public class User {
 		//
 		return "tiles.user.pagingUser";
 	}
+	
+	//0205 - 사용자 리스트가 없는 상태의 화면만 응답으로 생성
+	@RequestMapping("pagingUserAjaxView")
+	public String pagingUserAjaxView() {
+		
+		return "tiles.user.pagingUserAjax";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//localhost/user/profile
 	@RequestMapping("profile")
@@ -336,5 +413,5 @@ public class User {
 				e.printStackTrace();
 			}
 		}
-
+		
 }
